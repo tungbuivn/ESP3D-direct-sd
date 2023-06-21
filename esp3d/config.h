@@ -351,7 +351,7 @@ typedef enum {
 #define EP_TARGET_FW        461 //1  bytes = flag
 #define EP_TIMEZONE         462//1  bytes = flag
 #define EP_TIME_ISDST       463//1  bytes = flag
-#define EP_TIME_SERVER1 464//128 bytes 127+1 = string  ; warning does not support multibyte char like chinese  
+#define EP_TIME_SERVER1 464//128 bytes 127+1 = string  ; warning does not support multibyte char like chinese
 #define EP_TIME_SERVER2  593 //128 bytes 127+1 = string  ; warning does not support multibyte char like chinese
 #define EP_TIME_SERVER3  722 //128 bytes 127+1 = string  ; warning does not support multibyte char like chinese
 #define EP_IS_DIRECT_SD   850//1  bytes = flag
@@ -367,10 +367,10 @@ typedef enum {
 
 //default values
 #define DEFAULT_WIFI_MODE           AP_MODE
-const char DEFAULT_AP_SSID []  PROGMEM =        "ESP3D";
-const char DEFAULT_AP_PASSWORD [] PROGMEM = "12345678";
-const char DEFAULT_STA_SSID []  PROGMEM =       "ESP3D";
-const char DEFAULT_STA_PASSWORD [] PROGMEM =    "12345678";
+const char DEFAULT_AP_SSID []  PROGMEM =        "Voron20623";
+const char DEFAULT_AP_PASSWORD [] PROGMEM = "v0r0n24s3cur3";
+const char DEFAULT_STA_SSID []  PROGMEM =       "Voron20623";
+const char DEFAULT_STA_PASSWORD [] PROGMEM =    "v0r0n24s3cur3";
 const byte DEFAULT_STA_IP_MODE  =               DHCP_MODE;
 const byte DEFAULT_AP_IP_MODE =                 STATIC_IP_MODE;
 const byte DEFAULT_IP_VALUE[]   =           {192, 168, 0, 1};
@@ -386,8 +386,8 @@ const long DEFAULT_BAUD_RATE =          115200;
 #define DEFAULT_BEACON_INTERVAL         100
 const int DEFAULT_WEB_PORT =            80;
 const int DEFAULT_DATA_PORT =           8888;
-const char DEFAULT_ADMIN_PWD []  PROGMEM =  "admin";
-const char DEFAULT_USER_PWD []  PROGMEM =   "user";
+const char DEFAULT_ADMIN_PWD []  PROGMEM =  "4dm1nc0mpl3x";
+const char DEFAULT_USER_PWD []  PROGMEM =   "us3rcompl3x";
 const char DEFAULT_ADMIN_LOGIN []  PROGMEM =    "admin";
 const char DEFAULT_USER_LOGIN []  PROGMEM = "user";
 const char DEFAULT_TIME_SERVER1 []  PROGMEM =   "1.pool.ntp.org";
