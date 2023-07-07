@@ -174,9 +174,16 @@ const uint8_t PAGE_CAPTIVE[] PROGMEM = "<HTML>\n<HEAD>\n<title>Captive Portal</t
 #define CONTENT_TYPE_HTML "text/html"
 #include "direct_sd.h"
 #include "SD.h"
+#include "settings_html.h"
 
 // Root of Webserver/////////////////////////////////////////////////////
-
+#ifdef EMBED_SETTINGS
+void handle_web_interface_settings()
+{
+    web_interface->web_server.sendHeader("Content-Encoding", "gzip");
+    web_interface->web_server.send_P(200, CONTENT_TYPE_HTML, PAGE_SETTINGS, PAGE_SETTINGS_SIZE);
+}
+#endif
 void handle_web_interface_root()
 {
     String path = "/index.html";

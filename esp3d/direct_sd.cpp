@@ -4,7 +4,13 @@ static bool started = false;
 void initDirectSD()
 {
     pinMode(SwitchMasterPin, OUTPUT);
+    // reset sdcard state for marlin boot
     digitalWrite(SwitchMasterPin, LOW);
+    delayMicroseconds(10);
+    digitalWrite(SwitchMasterPin, HIGH);
+    delayMicroseconds(10);
+    digitalWrite(SwitchMasterPin, LOW);
+    delayMicroseconds(10);
     pinMode(SD_CS_PIN, OUTPUT);
     SPI.pins(SD_SCK_PIN, SD_MISO_PIN, SD_MOSI_PIN, SD_CS_PIN);
 }

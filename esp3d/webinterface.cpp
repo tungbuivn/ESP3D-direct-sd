@@ -356,6 +356,9 @@ WEBINTERFACE_CLASS::WEBINTERFACE_CLASS(int port) : web_server(port)
 #endif
 #else
     web_server.on("/", HTTP_ANY, handle_web_interface_root);
+#ifdef EMBED_SETTINGS
+    web_server.on("/settings", HTTP_ANY, handle_web_interface_settings);
+#endif
 #endif
     // need to be there even no authentication to say to UI no authentication
     web_server.on("/login", HTTP_ANY, handle_login);

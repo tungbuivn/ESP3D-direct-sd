@@ -23,7 +23,9 @@
 #include "config.h"
 #define NODEBUG_WEBSOCKETS
 #include <WebSocketsServer.h>
-
+#ifdef EMBED_SETTINGS
+extern void handle_web_interface_settings();
+#endif
 extern void handle_web_interface_root();
 extern void handle_login();
 extern void handleFileList();
@@ -37,16 +39,16 @@ extern void handle_web_command();
 extern void handle_web_command_silent();
 extern void handle_serial_SDFileList();
 extern void SDFile_serial_upload();
-extern WebSocketsServer * socket_server;
-extern void webSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t length);
+extern WebSocketsServer *socket_server;
+extern void webSocketEvent(uint8_t num, WStype_t type, uint8_t *payload, size_t length);
 
 #ifdef SSDP_FEATURE
-extern void handle_SSDP ();
+extern void handle_SSDP();
 #endif
 
 #ifdef WEB_UPDATE_FEATURE
-extern void handleUpdate ();
-extern void WebUpdateUpload ();
+extern void handleUpdate();
+extern void WebUpdateUpload();
 #endif
 
 #endif
