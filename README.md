@@ -22,6 +22,7 @@ WARNING: if you perform some action to sdcard while printing from sdcard, the pr
 ![Workflow](https://raw.githubusercontent.com/tungbuivn/ESP3D-direct-sd/2.1.x/images/sdwireless.png)
 
 ## Electric wiring
+https://oshwlab.com/tungbuivn/sd-card-marlin-esp8266
 
 ## gallery
 
