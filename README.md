@@ -23,4 +23,9 @@ WARNING: if you perform some action to sdcard while printing from sdcard, the pr
 
 ## Electric wiring
 
-- here is full turtorial
+## gallery
+
+![product](https://raw.githubusercontent.com/tungbuivn/ESP3D-direct-sd/2.1.x/images/product.jpg)
+![upload](https://raw.githubusercontent.com/tungbuivn/ESP3D-direct-sd/2.1.x/images/upload.png)
+![board](https://raw.githubusercontent.com/tungbuivn/ESP3D-direct-sd/2.1.x/images/board.jpg)
+![extend](https://raw.githubusercontent.com/tungbuivn/ESP3D-direct-sd/2.1.x/images/extend.jpg)
