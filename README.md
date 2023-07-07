@@ -14,5 +14,7 @@ please use Arduino ide 1.8.9+ with [![Release Version](https://img.shields.io/ba
 
 ## Summary 
 This is modified version of the original version. it only allow to listing, upload, delete directly from sd card.
+this can be using with any 3d printer/or using as standalone sdcard wireless.
 
 ## Workflow
+![Workflow](https://raw.githubusercontent.com/tungbuivn/ESP3D-direct-sd/2.1.x/images/sdwireless.png)
