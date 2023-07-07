@@ -1,8 +1,14 @@
 {
   "name": "embedded4ESP3D",
   "description": "Embedded files for ESP3D",
+  "type": "commonjs",
+  "scripts": {
+    "bin2c": "node build.js",
+    "gp": "gulp package",
+    "start": "npm-run-all gp bin2c"
+  },
   "devDependencies": {
-    "del": "latest",
+    "del": "=6.1.1",
     "deprecated": "latest",
     "fs": "latest",
     "gulp": "^4.0.0",
@@ -21,7 +27,8 @@
     "gulp-uglify": "latest",
     "gulp-zip": "latest",
     "jshint": "latest",
-    "merge-stream": "latest"
+    "merge-stream": "latest",
+    "npm-run-all": "^4.1.5"
   },
   "repository": "https://github.com/luc-github/ESP3D",
   "author": "Luc LEBOSSE",

@@ -28,6 +28,10 @@ extern void handle_web_interface_root();
 extern void handle_login();
 extern void handleFileList();
 extern void SPIFFSFileupload();
+#ifdef SHARED_SDCARD
+extern void handleSDFileList();
+extern void SPIShareSdCardUpload();
+#endif
 extern void handle_not_found();
 extern void handle_web_command();
 extern void handle_web_command_silent();

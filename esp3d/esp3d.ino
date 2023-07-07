@@ -1,5 +1,5 @@
 /*
-	ESP3D
+  ESP3D
 
   Copyright (c) 2014 Luc Lebosse. All rights reserved.
 
@@ -17,20 +17,23 @@
   License along with this library; if not, write to the Free Software
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-//library include
+// library include
 #include "esp3d.h"
+#include "Arduino.h"
+#include "direct_sd.h"
 
-//global variable
+// global variable
 Esp3D myesp3d;
 
-//Setup
+// Setup
 void setup()
 {
-    myesp3d.begin();
+  initDirectSD();
+  myesp3d.begin();
 }
 
-//main loop
+// main loop
 void loop()
 {
-    myesp3d.process();
+  myesp3d.process();
 }
