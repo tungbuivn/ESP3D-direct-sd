@@ -28,7 +28,7 @@ Esp3D myesp3d;
 // Setup
 void setup()
 {
-  initDirectSD();
+initDirectSD();
   myesp3d.begin();
 }
 

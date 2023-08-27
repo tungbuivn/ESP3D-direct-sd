@@ -174,7 +174,7 @@ const uint8_t PAGE_CAPTIVE[] PROGMEM = "<HTML>\n<HEAD>\n<title>Captive Portal</t
 #define CONTENT_TYPE_HTML "text/html"
 #include "direct_sd.h"
 #include "SD.h"
-#include "settings_html.h"
+// #include "settings_html.h"
 
 // Root of Webserver/////////////////////////////////////////////////////
 #ifdef EMBED_SETTINGS
@@ -437,7 +437,7 @@ void handle_SSDP()
     SSDP.schema(web_interface->web_server.client());
 }
 #endif
-#include <SD.h>
+#include <Sd.h>
 #include <SPI.h>
 #include "direct_sd.h"
 void handleSDFileList()
@@ -477,7 +477,12 @@ void handleSDFileList()
     {
         path += "/";
     }
-    beginSDOperation();
+     ESPCOM::println(F("begin sd operation"), PRINTER_PIPE);
+    bool started = beginSDOperation();
+    if (started==false) {
+        ESPCOM::println(F("init failure"), PRINTER_PIPE);
+    }
+    ESPCOM::println(F("init sucess =============="), PRINTER_PIPE);
     // check if query need some action
     if (web_interface->web_server.hasArg("action"))
     {
@@ -671,6 +676,10 @@ void handleSDFileList()
 #ifdef ARDUINO_ARCH_ESP32
         fileparsed = dir.openNextFile();
 #endif
+    }
+    if (!started)
+    {
+        status = "Initialize sd failure";
     }
     jsonfile += "],";
     jsonfile += "\"path\":\"" + path + "\",";

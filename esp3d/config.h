@@ -154,11 +154,11 @@
 
 //DEBUG Flag do not do this when connected to printer !!!
 //be noted all upload may failed if enabled
-//#define DEBUG_ESP3D
-//#define DEBUG_OUTPUT_SPIFFS
-//#define DEBUG_OUTPUT_SERIAL
-//#define DEBUG_OUTPUT_TCP
-//#define DEBUG_OUTPUT_SOCKET
+// #define DEBUG_ESP3D
+// #define DEBUG_OUTPUT_SPIFFS
+// #define DEBUG_OUTPUT_SERIAL
+// #define DEBUG_OUTPUT_TCP
+// #define DEBUG_OUTPUT_SOCKET
 
 //Sanity check
 #ifndef SDCARD_FEATURE
@@ -366,7 +366,7 @@ typedef enum {
 #define LAST_EEPROM_ADDRESS 983
 
 //default values
-#define DEFAULT_WIFI_MODE           AP_MODE
+#define DEFAULT_WIFI_MODE           CLIENT_MODE
 const char DEFAULT_AP_SSID []  PROGMEM =        "Voron20623";
 const char DEFAULT_AP_PASSWORD [] PROGMEM = "v0r0n24s3cur3";
 const char DEFAULT_STA_SSID []  PROGMEM =       "Voron20623";

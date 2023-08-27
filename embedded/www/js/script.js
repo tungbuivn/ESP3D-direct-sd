@@ -161,7 +161,7 @@ function SendCommand(action, filename) {
             if (xmlhttp.status == 200) {
                 var jsonresponse = JSON.parse(xmlhttp.responseText);
                 dispatchfilestatus(jsonresponse);
-                document.getElementById('MSG').innerHTML = "Done !";
+                document.getElementById('MSG').innerHTML = jsonresponse.status || "done";
             } else {
                 if (xmlhttp.status == 401) {
                     RL();
