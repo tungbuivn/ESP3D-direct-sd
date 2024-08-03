@@ -167,6 +167,7 @@ void Esp3D::begin(uint16_t startdelayms, uint16_t recoverydelayms)
         delay(1000);
 #endif
         CONFIG::reset_config();
+        ESPCOM::println(F("ESP reset config"), PRINTER_PIPE);
         delay(1000);
         // put some default value to a void some exception at first start
         WiFi.mode(WIFI_AP);

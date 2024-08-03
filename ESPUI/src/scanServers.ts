@@ -15,7 +15,7 @@ var checkPort = function (port: number, host: string, callback: (...args: any) =
 }
 export async function scanServer() {
     var LAN = '192.168.1'; //Local area network to scan (this is rough)
-    var LLRP = 22; //globally recognized LLRP port for RFID readers
+    var LLRP = 80; //globally recognized LLRP port for RFID readers
     var found: Promise<string>[] = [];
 
     //scan over a range of IP addresses and execute a function each time the LLRP port is shown to be open.
