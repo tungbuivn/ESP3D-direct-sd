@@ -136,11 +136,13 @@ function dispatchfilestatus(jsonresponse) {
 }
 
 function Delete(filename) {
-    if (confirm("Confirm deletion of file: " + filename)) SendCommand("delete", filename);
+    // if (confirm("Confirm deletion of file: " + filename)) 
+        SendCommand("delete", filename);
 }
 
 function Deletedir(filename) {
-    if (confirm("Confirm deletion of directory: " + filename)) SendCommand("deletedir", filename);
+    // if (confirm("Confirm deletion of directory: " + filename)) 
+        SendCommand("deletedir", filename);
 }
 
 function Createdir() {

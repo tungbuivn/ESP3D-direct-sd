@@ -23,7 +23,7 @@ WARNING: if you perform some action to sdcard while printing from sdcard, the pr
 
 ## Electric wiring
 https://oshwlab.com/tungbuivn/sd-card-marlin-esp8266
-
+https://circuitjournal.com/esp8266-with-arduino-ide
 ## gallery
 
 ![product](https://raw.githubusercontent.com/tungbuivn/ESP3D-direct-sd/2.1.x/images/product.jpg)

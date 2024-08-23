@@ -382,8 +382,12 @@ WEBINTERFACE_CLASS::WEBINTERFACE_CLASS(int port) : web_server(port)
 #endif
 #endif
     // SPIFFS
+    #ifdef SHARED_SDCARD
     web_server.on("/files", HTTP_ANY, handleSDFileList, SPIShareSdCardUpload);
-    // web_server.on("/files", HTTP_ANY, handleFileList, SPIShareSdCardUpload);
+    #else
+    web_server.on("/files", HTTP_ANY, handleFileList, SPIFFSFileupload);
+    #endif
+    // 
 #ifdef WEB_UPDATE_FEATURE
     web_server.on("/updatefw", HTTP_ANY, handleUpdate, WebUpdateUpload);
 #endif

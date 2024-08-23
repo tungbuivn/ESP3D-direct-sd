@@ -701,11 +701,11 @@ void WebSocketsClient::connectedCb() {
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
     if(_client.isSSL && _fingerprint.length()) {
-        if(!_client.ssl->verify(_fingerprint.c_str(), _host.c_str())) {
+        // if(!_client.ssl->verify(_fingerprint.c_str(), _host.c_str())) {
             DEBUG_WEBSOCKETS("[WS-Client] certificate mismatch\n");
             WebSockets::clientDisconnect(&_client, 1000);
             return;
-        }
+        // }
     }
 #pragma GCC diagnostic pop
 #endif

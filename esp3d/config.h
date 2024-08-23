@@ -367,7 +367,7 @@ typedef enum {
 
 //default values
 #define DEFAULT_WIFI_MODE           AP_MODE
-const char DEFAULT_AP_SSID []  PROGMEM =        "Voron20623";
+const char DEFAULT_AP_SSID []  PROGMEM =        "Voron2308";
 const char DEFAULT_AP_PASSWORD [] PROGMEM = "v0r0n24s3cur3";
 const char DEFAULT_STA_SSID []  PROGMEM =       "Voron20623";
 const char DEFAULT_STA_PASSWORD [] PROGMEM =    "v0r0n24s3cur3";

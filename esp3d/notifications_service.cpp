@@ -33,7 +33,7 @@
 #include "notifications_service.h"
 #include "wificonf.h"
 #if defined( ARDUINO_ARCH_ESP8266)
-#define USING_AXTLS
+// #define USING_AXTLS
 #if defined(USING_AXTLS)
 #include "WiFiClientSecureAxTLS.h"
 using namespace axTLS;

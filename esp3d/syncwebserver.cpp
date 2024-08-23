@@ -173,7 +173,7 @@ const uint8_t PAGE_404[] PROGMEM = "<HTML>\n<HEAD>\n<title>Redirecting...</title
 const uint8_t PAGE_CAPTIVE[] PROGMEM = "<HTML>\n<HEAD>\n<title>Captive Portal</title> \n</HEAD>\n<BODY>\n<CENTER>Captive Portal page : $QUERY$- you will be redirected...\n<BR><BR>\nif not redirected, <a href='http://$WEB_ADDRESS$'>click here</a>\n<BR><BR>\n<PROGRESS name='prg' id='prg'></PROGRESS>\n\n<script>\nvar i = 0; \nvar x = document.getElementById(\"prg\"); \nx.max=5; \nvar interval=setInterval(function(){\ni=i+1; \nvar x = document.getElementById(\"prg\"); \nx.value=i; \nif (i>5) \n{\nclearInterval(interval);\nwindow.location.href='/';\n}\n},1000);\n</script>\n</CENTER>\n</BODY>\n</HTML>\n\n";
 #define CONTENT_TYPE_HTML "text/html"
 #include "direct_sd.h"
-#include "SD.h"
+#include "SdFat.h"
 // #include "settings_html.h"
 
 // Root of Webserver/////////////////////////////////////////////////////
@@ -437,7 +437,7 @@ void handle_SSDP()
     SSDP.schema(web_interface->web_server.client());
 }
 #endif
-#include <Sd.h>
+#include <SdFat.h>
 #include <SPI.h>
 #include "direct_sd.h"
 void handleSDFileList()
@@ -570,7 +570,9 @@ void handleSDFileList()
     }
     String jsonfile = "{";
 #if defined(ARDUINO_ARCH_ESP8266)
-    FS_FILE dir = SD.open(path);
+
+    File32 dir ;
+    dir.open(path.c_str());
 #else
     String ptmp = path;
     if ((path != "/") && (path[path.length() - 1] = '/'))
@@ -582,19 +584,27 @@ void handleSDFileList()
     jsonfile += "\"files\":[";
     bool firstentry = true;
     String subdirlist = "";
+    char buf[50];
 #if defined(ARDUINO_ARCH_ESP8266)
     while (true)
     {
-        File entry = dir.openNextFile();
-        String entryName = entry.name();
+        File32 afile=dir.openNextFile();
+        // SD.ls(LS_R);
+        if (!afile) {
+            break;
+        };
+      
+        
+        int len = afile.getName(buf,50);
 
-        if (!entry)
+        if (!len)
         {
             // no more files
             break;
         }
 
-        String filename = entryName;
+        String filename = String(buf);
+        ESPCOM::println(filename, PRINTER_PIPE);
 
 #else
     File fileparsed = dir.openNextFile();
@@ -605,8 +615,8 @@ void handleSDFileList()
         String size = "";
         bool addtolist = true;
 
-        size = CONFIG::formatBytes(entry.size());
-        if (entry.isDirectory())
+        size = CONFIG::formatBytes(afile.size());
+        if (afile.isDirectory())
         {
             // addtolist = false;
             size = -1;
@@ -617,44 +627,7 @@ void handleSDFileList()
         // remove path from name
         // filename = filename.substring(path.length(), filename.length());
         // check if file or subfile
-        if (filename.indexOf("/") > -1)
-        {
-            // Do not rely on "/." to define directory as SPIFFS upload won't create it but directly files
-            // and no need to overload SPIFFS if not necessary to create "/." if no need
-            // it will reduce SPIFFS available space so limit it to creation
-            // filename = filename.substring(0, filename.indexOf("/"));
-            // String tag = "*";
-            // tag += filename + "*";
-            // if (subdirlist.indexOf(tag) > -1 || filename.length() == 0)
-            // {                      // already in list
-            //     addtolist = false; // no need to add
-            // }
-            // else
-            // {
-            //     size = -1; // it is subfile so display only directory, size will be -1 to describe it is directory
-            //     if (subdirlist.length() == 0)
-            //     {
-            //         subdirlist += "*";
-            //     }
-            //     subdirlist += filename + "*"; // add to list
-            // }
-        }
-        else
-        {
-            // do not add "." file
-            //             if (!((filename == ".") || (filename == "")))
-            //             {
-            // #if defined(ARDUINO_ARCH_ESP8266)
-            //                 size = CONFIG::formatBytes(dir.size());
-            // #else
-            //                 size = CONFIG::formatBytes(fileparsed.size());
-            // #endif
-            //             }
-            //             else
-            //             {
-            //                 addtolist = false;
-            //             }
-        }
+       
         if (addtolist)
         {
             if (!firstentry)
@@ -683,32 +656,42 @@ void handleSDFileList()
     }
     jsonfile += "],";
     jsonfile += "\"path\":\"" + path + "\",";
-    jsonfile += "\"status\":\"" + status + "\",";
-    size_t totalBytes;
-    size_t usedBytes;
+    jsonfile += "\"status\":\"" + status + "\"";
+    //  float cardSize;
+    //  float used;
+ ESPCOM::println("Query card info", PRINTER_PIPE);
+     
 #if defined(ARDUINO_ARCH_ESP8266)
-    fs::FSInfo info;
-    // SPIFFS.info(info);
-    SDFS.info(info);
+    // fs::FSInfo info;
+    // // SPIFFS.info(info);
+    // SD.info(info);
 
-    uint64_t cardSize = info.totalBytes;
-
-    totalBytes = cardSize;
-    usedBytes = info.usedBytes;
+    // uint64_t cardSize = info.totalBytes;
+    // SdCard *ac= SD.card();
+    
+    //   cardSize = SD.card()->sectorCount() * 0.000512;
+    //  used = cardSize - SD.vol()->freeClusterCount() * SD.vol()->sectorsPerCluster() * 0.000512;
+//      totalBytes =ac->sectorCount();
+//     freeKB = SD.vol()->freeClusterCount();
+//   freeKB *= SD.vol()->sectorsPerCluster()/2;
+//     usedBytes = totalBytes-freeKB;
 #else
     totalBytes = SPIFFS.totalBytes();
     usedBytes = SPIFFS.usedBytes();
 #endif
-    jsonfile += "\"total\":\"" + CONFIG::formatBytes(totalBytes) + "\",";
-    jsonfile += "\"used\":\"" + CONFIG::formatBytes(usedBytes) + "\",";
-    jsonfile.concat(F("\"occupation\":\""));
-    jsonfile += CONFIG::intTostr(100 * usedBytes / totalBytes);
-    jsonfile += "\"";
+    ESPCOM::println("Done files listing", PRINTER_PIPE);
+    // jsonfile += "\"total\":\"" + CONFIG::formatBytes((unsigned int)cardSize) + "\",";
+    // jsonfile += "\"free\":\"" + CONFIG::formatBytes((unsigned int)used) + "\",";
+   
+    // jsonfile.concat(F("\"occupation\":\""));
+    // // jsonfile += CONFIG::intTostr(100 * usedBytes / totalBytes);
+    // jsonfile += "\"";
     jsonfile += "}";
     path = "";
     web_interface->web_server.sendHeader("Cache-Control", "no-cache");
     web_interface->web_server.send(200, "application/json", jsonfile);
     web_interface->_upload_status = UPLOAD_STATUS_NONE;
+    ESPCOM::println("End file listing", PRINTER_PIPE);
     endSDOperation();
 }
 
@@ -894,6 +877,9 @@ void handleFileList()
     while (dir.next())
     {
         String filename = dir.fileName();
+        if (filename.indexOf("System Volume")>-1) {
+            continue;
+        } 
 #else
     File fileparsed = dir.openNextFile();
     while (fileparsed)
@@ -996,7 +982,8 @@ void handleFileList()
 
 void SPIShareSdCardUpload()
 {
-    static FS_FILE fsUploadFile = (FS_FILE)0;
+    // static int fsUploadFileStatus=0;
+    static File32 fsUploadFile;
     static String filename;
     // get authentication status
     level_authenticate_type auth_level = web_interface->is_authenticated();
@@ -1035,15 +1022,17 @@ void SPIShareSdCardUpload()
                         upload_filename = filename;
                         filename = "/user" + upload_filename;
                     }
+                     if (fsUploadFile)
+                    {
+                        fsUploadFile.close();
+                        // fsUploadFile=NULL;
+                    }
 
                     if (SD.exists(filename))
                     {
                         SD.remove(filename);
                     }
-                    if (fsUploadFile)
-                    {
-                        fsUploadFile.close();
-                    }
+                   
 
                     // Upload start
                     //**************

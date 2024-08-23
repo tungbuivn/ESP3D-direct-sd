@@ -13,32 +13,35 @@ function GetBinaryArray(filename) {
     }
 }
 function writeMain() {
-    var { content, size } = GetBinaryArray("./tool.html.gz");
+    // var { content, size } = GetBinaryArray("./tool.html.gz");
 
     var cnt = `
     #ifndef __nofile_h
     #define __nofile_h
-    #define PAGE_NOFILES_SIZE ${size}
-    const char PAGE_NOFILES[${size}] PROGMEM = {
-        ${content}
+    #define PAGE_NOFILES_SIZE ${1}
+    const char PAGE_NOFILES[${1}] PROGMEM = {
+        1
     };
     #endif
     `
     fs.writeFileSync(`${__dirname}/../esp3d/nofile.h`, cnt);
 }
 function writeSetting() {
-    var { content, size } = GetBinaryArray(`${__dirname}/../esp3d/data/index.html.gz`);
+    // var { content, size } = GetBinaryArray(`${__dirname}/../esp3d/data/index.html.gz`);
     var cnt = `
     #ifndef __SETTINGSHTML_H
     #define __SETTINGSHTML_H
-    #define PAGE_SETTINGS_SIZE ${size}
-    const char PAGE_SETTINGS[${size}] PROGMEM = {
-        ${content}
+    #define PAGE_SETTINGS_SIZE ${1}
+    const char PAGE_SETTINGS[${1}] PROGMEM = {
+        1
     };
     #endif
     `
     fs.writeFileSync(`${__dirname}/../esp3d/settings_html.h`, cnt);
 }
+var cnt=fs.readFileSync("./dist/tool.html");
+fs.writeFileSync(__dirname+"/../esp3d/data/index.html",cnt);
+// fs.readFileSync("./dist/tool.html");
 
 writeMain();
 // build binary for setting files
